@@ -12,6 +12,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
+//    private Long id;
+//
+//    @Column(name = "title")
+//    private String title;
+//
+//    @Column(name = "price")
+//    private Integer price;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,4 +33,7 @@ public class Product {
 
     @Column(name = "price")
     private Integer price;
+
+    @Column(name = "purchase_price")
+    private Integer purchasePrice;
 }
