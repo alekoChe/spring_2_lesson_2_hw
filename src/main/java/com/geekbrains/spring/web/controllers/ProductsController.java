@@ -1,6 +1,6 @@
 package com.geekbrains.spring.web.controllers;
 
-import com.geekbrains.spring.web.converters.ProductConverter;
+import com.geekbrains.spring.web.converters.ProductMapper;
 import com.geekbrains.spring.web.dto.ProductDto;
 import com.geekbrains.spring.web.entities.Product;
 import com.geekbrains.spring.web.exceptions.ResourceNotFoundException;
@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductsService productsService;
-    private final ProductConverter productConverter;
+    //private final ProductConverter productConverter;
     private final ProductValidator productValidator;
+    private final ProductMapper productMapper;
 
     @GetMapping
     public Page<ProductDto> getAllProducts(
@@ -29,29 +30,34 @@ public class ProductsController {
             page = 1;
         }
         return productsService.findAll(minPrice, maxPrice, titlePart, page).map(
-                p -> productConverter.entityToDto(p)
+                //p -> productConverter.entityToDto(p)
+                p -> productMapper.MAPPER.fromProduct(p)
         );
     }
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
         Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
-        return productConverter.entityToDto(product);
+        //return productConverter.entityToDto(product);
+        return productMapper.MAPPER.fromProduct(product);
     }
 
     @PostMapping
     public ProductDto saveNewProduct(@RequestBody ProductDto productDto) {
         productValidator.validate(productDto);
-        Product product = productConverter.dtoToEntity(productDto);
+        //Product product = productConverter.dtoToEntity(productDto);
+        Product product = productMapper.MAPPER.toProduct(productDto);
         product = productsService.save(product);
-        return productConverter.entityToDto(product);
+        //return productConverter.entityToDto(product);
+        return productMapper.MAPPER.fromProduct(product);
     }
 
     @PutMapping
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         productValidator.validate(productDto);
         Product product = productsService.update(productDto);
-        return productConverter.entityToDto(product);
+        //return productConverter.entityToDto(product);
+        return productMapper.MAPPER.fromProduct(product);
     }
 
     @DeleteMapping("/{id}")
