@@ -1,6 +1,7 @@
 package com.geekbrains.spring.web.controllers;
 
 import com.geekbrains.spring.web.converters.OrderConverter;
+import com.geekbrains.spring.web.converters.OrderMapper;
 import com.geekbrains.spring.web.dto.OrderDetailsDto;
 import com.geekbrains.spring.web.dto.OrderDto;
 import com.geekbrains.spring.web.entities.User;
@@ -21,6 +22,7 @@ public class OrderController {
         private final UserService userService;
         private final OrderService orderService;
         private final OrderConverter orderConverter;
+        private final OrderMapper orderMapper;
 
 
     @PostMapping("/{cartName}")
@@ -33,7 +35,8 @@ public class OrderController {
     @GetMapping
     public List<OrderDto> getCurrenUrders(Principal principal){
         return orderService.findOrdersByUsername(principal.getName()).stream()
-                .map(orderConverter::entityToDto).collect(Collectors.toList());
+                //.map(orderConverter::entityToDto).collect(Collectors.toList());
+                .map(orderMapper::fromOrder).collect(Collectors.toList());
     }
 
 
