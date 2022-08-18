@@ -7,7 +7,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Data
@@ -20,7 +19,7 @@ public class User {
     private Long id;
 
     @Column(name = "user_name")
-    private String userName;
+    private String username; /////////   userName
 
     @Column(name = "password")
     private String password;
