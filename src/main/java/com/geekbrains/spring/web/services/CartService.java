@@ -63,4 +63,22 @@ public class CartService {
 //        cacheManager.getCache(CACHE_CART).put(cartName, cart);
 //    }
 
+    @CachePut(value = "${other.cache.cart}", key = "#cartName")
+    public Cart decreaseProductIntoCart(Long id, String cartName) {
+        Cart cart = getCurrentCart(cartName);
+        if (!getCurrentCart(cartName).addProductCount(id)){
+            //Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Не удалось найти продукт"));
+            cart.decreaseProduct(id);
+        }
+        //cart.decreaseProduct(id);
+        return cart;
+    }
+
+    @CachePut(value = "${other.cache.cart}", key = "#cartName")
+    public Cart removeProductFromCart(Long id, String cartName) {
+        Cart cart = getCurrentCart(cartName);
+        cart.removeProduct(id);
+        return cart;
+    }
+
 }

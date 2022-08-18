@@ -27,4 +27,14 @@ public class CartController {
         service.getCurrentCart(cartName).clear();
     }
 
+    @PostMapping("/decrease/{id}")
+    public void decreaseProductIntoCart(@PathVariable Long id, @RequestBody String cartName) {
+        service.decreaseProductIntoCart(id, cartName);
+    }
+
+    @PostMapping("/remove/{id}")
+    public void removeProductFromCart(@PathVariable Long id, @RequestBody String cartName) {
+        service.removeProductFromCart(id, cartName);
+    }
+
 }
