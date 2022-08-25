@@ -1,8 +1,6 @@
 package com.geekbrains.spring.web.configs;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
+import org.springframework.context.annotation.*;
 
 @Configuration
 @PropertySource("secrets.properties")
