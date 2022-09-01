@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-@Slf4j  /////////////////
 public class Cart {
 
     private List<OrderItemDto> items;
@@ -83,12 +82,10 @@ public class Cart {
                 return;
             }
         }
-        log.info("decrease product in cart"); ////////////////
     }
 
     public void clear(){
         items.clear();
         totalPrice = 0;
-        log.info("Cart is cleared"); ////////////////
     }
 }

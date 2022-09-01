@@ -31,27 +31,19 @@ angular.module('market-front').controller('cartController', function ($scope, $r
     }
 
     ////////////////////////
-    $scope.decreaseProductFromCart = function () {  // function (productId)
+    $scope.decreaseProductFromCart = function (productId) {
         $http.post('http://localhost:8189/app/api/v1/carts/decrease/' + productId, $localStorage.cartName)
             .then(function (response) {
-                $scope.Cart = response.data;
                 $scope.loadCart();
             });
     };
 
-    $scope.removeProductFromCart = function() {  // function (productId)
+    $scope.removeProductFromCart = function(productId) {
         $http.post('http://localhost:8189/app/api/v1/carts/remove/' + productId, $localStorage.cartName)
             .then(function (response) {
-                //$scope.Cart = response.data;
                 $scope.loadCart();
             });
     };
-
-//    $scope.addToCart = function (productId) {
-//            $http.post('http://localhost:8189/app/api/v1/carts/add/' + productId, $localStorage.cartName)
-//                .then(function (response) {
-//                });
-//        };
 
     $scope.loadCart();
 

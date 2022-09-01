@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/carts")
 @RequiredArgsConstructor
-@Slf4j
 public class CartController {
     private final CartService cartService;
 
@@ -26,14 +25,11 @@ public class CartController {
     @PostMapping("/clear")
     public void clearCart(@RequestBody String cartName){
         cartService.getCurrentCart(cartName).clear();
-        log.info("Cart is cleared"); ////////////////
     }
 
     @PostMapping("/decrease/{id}")
     public void decreaseProductIntoCart(@PathVariable Long id, @RequestBody String cartName) {
-        log.info("we are in decrease"); ////////////////
         cartService.decreaseProductIntoCart(id, cartName);
-        log.info("decrease product in cart"); ////////////////
     }
 
     @PostMapping("/remove/{id}")

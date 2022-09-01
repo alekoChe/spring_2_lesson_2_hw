@@ -57,7 +57,6 @@ public class CartService {
     public void clear(String cartName){
         Cart cart = getCurrentCart(cartName);
         cart.clear();
-        log.info("Cart is cleared"); ////////////////
     }
 
 //    public void clear(String cartName){
@@ -69,10 +68,6 @@ public class CartService {
     @CachePut(value = "${other.cache.cart}", key = "#cartName")
     public Cart decreaseProductIntoCart(Long id, String cartName) {
         Cart cart = getCurrentCart(cartName);
-        if (!getCurrentCart(cartName).addProductCount(id)){
-            //Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Не удалось найти продукт"));
-            cart.decreaseProduct(id);
-        }
         cart.decreaseProduct(id);
         return cart;
     }

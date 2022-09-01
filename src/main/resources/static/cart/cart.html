@@ -9,21 +9,22 @@
     </tr>
     <tbody>
     <tr ng-repeat="item in Cart.items">
-        <td>{{item.id}}</td>
+        <td>{{item.productId}}</td>  // исправил id на productId
         <td>{{item.title}}</td>
         <td>{{item.quantity}}</td>
         <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
 <!--        ...........................-->
 
         <td>
-            <button class="btn btn-dark" ng-click="decreaseProductFromCart(item.id)">Уменьшить товар</button>
+            <button class="btn btn-dark" ng-click="decreaseProductFromCart(item.productId)">Уменьшить товар</button>
         </td>
         <td>
-            <button class="btn btn-warning" ng-click="removeProductFromCart(item.id)">Удалить из корзины</button>
+            <button class="btn btn-warning" ng-click="removeProductFromCart(item.productId)">Удалить из корзины</button>
         </td>
 <!--        ...............................-->
     </tr>
     <tr>
+        <td></td>
         <td></td>
         <td>Итого</td>
         <td>{{Cart.totalPrice}}</td>
