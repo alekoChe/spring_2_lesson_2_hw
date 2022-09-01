@@ -2,16 +2,19 @@
 <h3>Корзина</h3>
 <table class="table table-hover">
     <tr>
+        <td>Id товара</td>
         <td>Название товара</td>
         <td>Количество</td>
         <td>Цена</td>
     </tr>
     <tbody>
     <tr ng-repeat="item in Cart.items">
+        <td>{{item.id}}</td>
         <td>{{item.title}}</td>
         <td>{{item.quantity}}</td>
         <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
 <!--        ...........................-->
+
         <td>
             <button class="btn btn-dark" ng-click="decreaseProductFromCart(item.id)">Уменьшить товар</button>
         </td>

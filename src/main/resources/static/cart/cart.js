@@ -31,7 +31,7 @@ angular.module('market-front').controller('cartController', function ($scope, $r
     }
 
     ////////////////////////
-    $scope.decreaseProductFromCart = function (productId) {
+    $scope.decreaseProductFromCart = function () {  // function (productId)
         $http.post('http://localhost:8189/app/api/v1/carts/decrease/' + productId, $localStorage.cartName)
             .then(function (response) {
                 $scope.Cart = response.data;
@@ -39,7 +39,7 @@ angular.module('market-front').controller('cartController', function ($scope, $r
             });
     };
 
-    $scope.removeProductFromCart = function(productId) {
+    $scope.removeProductFromCart = function() {  // function (productId)
         $http.post('http://localhost:8189/app/api/v1/carts/remove/' + productId, $localStorage.cartName)
             .then(function (response) {
                 //$scope.Cart = response.data;

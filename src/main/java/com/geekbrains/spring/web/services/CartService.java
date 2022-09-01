@@ -5,6 +5,7 @@ import com.geekbrains.spring.web.dto.Cart;
 import com.geekbrains.spring.web.entities.Product;
 import com.geekbrains.spring.web.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CartService {
     private final ProductsService productsService;
     private final CacheManager cacheManager;
@@ -55,6 +57,7 @@ public class CartService {
     public void clear(String cartName){
         Cart cart = getCurrentCart(cartName);
         cart.clear();
+        log.info("Cart is cleared"); ////////////////
     }
 
 //    public void clear(String cartName){
@@ -70,9 +73,13 @@ public class CartService {
             //Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Не удалось найти продукт"));
             cart.decreaseProduct(id);
         }
-        //cart.decreaseProduct(id);
+        cart.decreaseProduct(id);
         return cart;
     }
+
+    //    public void removeItemFromCart(String cartKey, Long productId) {
+//        execute(cartKey, c -> c.removeProduct(productId));
+//    }
 
     @CachePut(value = "${other.cache.cart}", key = "#cartName")
     public Cart removeProductFromCart(Long id, String cartName) {

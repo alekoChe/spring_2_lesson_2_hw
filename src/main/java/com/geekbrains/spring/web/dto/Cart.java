@@ -2,13 +2,16 @@ package com.geekbrains.spring.web.dto;
 
 import com.geekbrains.spring.web.entities.Product;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Data
+@Slf4j  /////////////////
 public class Cart {
 
     private List<OrderItemDto> items;
@@ -19,9 +22,22 @@ public class Cart {
     }
 
     public Cart(String cartName, CacheManager manager){
+        Cart cart = manager.getCache("Cart").get(cartName, Cart.class);
+        if(Optional.ofNullable(cart).isPresent()){
+            this.items = cart.getItems();
+            this.totalPrice = cart.getTotalPrice();
+        } else {
             this.items = new ArrayList<>();
             this.totalPrice = 0;
+            manager.getCache("Cart").put(cartName, Cart.class);
         }
+    }
+
+
+//    public Cart(String cartName, CacheManager manager){
+//            this.items = new ArrayList<>();
+//            this.totalPrice = 0;
+//        }
 
     public boolean addProductCount(Long id){
         for(OrderItemDto o: items){
@@ -67,10 +83,12 @@ public class Cart {
                 return;
             }
         }
+        log.info("decrease product in cart"); ////////////////
     }
 
     public void clear(){
         items.clear();
         totalPrice = 0;
+        log.info("Cart is cleared"); ////////////////
     }
 }
